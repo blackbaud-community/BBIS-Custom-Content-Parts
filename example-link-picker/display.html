@@ -1,0 +1,10 @@
+<p>
+  See my link: <span class="selected-link"></span>
+</p>
+    
+<script>
+function initLinkPickerExample(instance) {
+  var link = '<a href="' + instance.settings.selectedUrl + '">' + instance.settings.selectedName + '</a>';
+  $('#' + instance.elementId + ' .selected-link').append(link);
+}
+</script>

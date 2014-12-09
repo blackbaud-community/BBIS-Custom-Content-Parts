@@ -1,0 +1,32 @@
+<p>
+  <label for="greeting">Greeting:</label>
+  <input type="text" id="greeting" />
+</p>
+      
+<script>
+!function($) {
+  
+  $(function() {
+    
+    // Read our previously saved greeting (if it exists)
+    if (typeof BLACKBAUD.api.customPartEditor.settings.greeting != '') {
+      $('#greeting').val(BLACKBAUD.api.customPartEditor.settings.greeting);
+    }
+    
+    // We must implement the onSave method
+    // Returning true or false controls whether the save is successful
+    BLACKBAUD.api.customPartEditor.onSave = function() {
+      
+      // Save our greeting
+      BLACKBAUD.api.customPartEditor.settings = {
+        greeting: $('#greeting').val()
+      };
+      
+      // Required to allow the settings to save and the part to close
+      return true;
+    };
+    
+  });
+  
+}(jQuery);     
+</script>

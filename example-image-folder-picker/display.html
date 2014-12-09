@@ -1,0 +1,24 @@
+<div class="carousel">Loading...</div>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.2/owl.carousel.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.2/owl.theme.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.2/owl.carousel.min.js"></script>
+    
+<script>
+function imageFolderPickerRender(instance) {
+  
+  var placeholder = $('#' + instance.elementId + ' .carousel');
+  
+  placeholder.owlCarousel({
+    singleItem: true,
+    jsonPath: BLACKBAUD.api.pageInformation.rootPath + '/WebApi/Images?FolderGUID=' + instance.settings.selectedGuid,
+    jsonSuccess: function(images) {
+      var content = '';
+      for (var i = 0, j = images.length; i < j; i++) {
+        content += '<img src="' + images[i].Url + '" alt="' + images[i].Caption + '" />';
+      }
+      placeholder.html(content);    
+    }
+  }); 
+}
+</script>

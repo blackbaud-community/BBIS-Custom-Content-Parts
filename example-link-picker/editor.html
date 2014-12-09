@@ -1,0 +1,71 @@
+<p>
+  <strong>Selected Link Name:</strong>
+  <span class="selected-link-name"></span>
+</p>
+    
+<p>
+  <strong>Selected Link URL:</strong>
+  <span class="selected-link-url"></span>
+</p>
+  
+<p>
+  <button class="btn-select">Select Link</button>
+</p>
+      
+<script>
+!function($) {
+  
+  $(function() {
+    
+    // Read our previously saved name (if it exists)
+    if (typeof BLACKBAUD.api.customPartEditor.settings.selectedName != '') {
+      $('.selected-link-name').text(BLACKBAUD.api.customPartEditor.settings.selectedName);
+    }
+    
+    // Read our previously saved url (if it exists)
+    if (typeof BLACKBAUD.api.customPartEditor.settings.selectedUrl != '') {
+      $('.selected-link-url').text(BLACKBAUD.api.customPartEditor.settings.selectedUrl);
+    }
+    
+    // We must implement the onSave method
+    // Returning true or false controls whether the save is successful
+    BLACKBAUD.api.customPartEditor.onSave = function() {
+      
+      // Save our settings
+      BLACKBAUD.api.customPartEditor.settings = {
+        selectedName: $('.selected-link-name').text(),
+        selectedUrl: $('.selected-link-url').text()
+      };
+      
+      // Required to allow the settings to save and the part to close
+      return true;
+    };
+    
+    // Bind to the link launcher button
+    $('.btn-select').click(function(e) {
+      
+      // Stop the button from submitting our form
+      e.preventDefault();
+      
+      // Verify the user has permission to launch the link picker
+      if (!BLACKBAUD.api.customPartEditor.links.canLaunchLinkPicker) {
+        
+        alert('You do not have permission to launch the link picker.');
+        
+      } else {
+        
+        // Launch the link picker, passing in our callback
+        BLACKBAUD.api.customPartEditor.links.launchLinkPicker({
+          callback: function(selectedLink) {
+            $('.selected-link-name').text(selectedLink.name);
+            $('.selected-link-url').text(selectedLink.url);
+          }
+        });
+        
+      }
+    })
+    
+  });
+  
+}(jQuery);     
+</script>

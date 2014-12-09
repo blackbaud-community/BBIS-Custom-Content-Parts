@@ -1,0 +1,63 @@
+<p>
+  <strong>Selected Folder Name:</strong>
+  <span class="selected-folder-name"></span>
+</p>
+    
+<p>
+  <strong>Selected Folder GUID:</strong>
+  <span class="selected-folder-guid"></span>
+</p>
+  
+<p>
+  <button class="btn-select">Select Folder</button>
+</p>
+      
+<script>
+!function($) {
+  
+  $(function() {
+    
+    // Read our previously saved name (if it exists)
+    if (typeof BLACKBAUD.api.customPartEditor.settings.selectedName != '') {
+      $('.selected-folder-name').text(BLACKBAUD.api.customPartEditor.settings.selectedName);
+    }
+    
+    // Read our previously saved url (if it exists)
+    if (typeof BLACKBAUD.api.customPartEditor.settings.selectedGuid != '') {
+      $('.selected-folder-guid').text(BLACKBAUD.api.customPartEditor.settings.selectedGuid);
+    }
+    
+    // We must implement the onSave method
+    // Returning true or false controls whether the save is successful
+    BLACKBAUD.api.customPartEditor.onSave = function() {
+      
+      // Save our settings
+      BLACKBAUD.api.customPartEditor.settings = {
+        selectedName: $('.selected-folder-name').text(),
+        selectedGuid: $('.selected-folder-guid').text()
+      };
+      
+      // Required to allow the settings to save and the part to close
+      return true;
+    };
+    
+    // Bind to the link launcher button
+    $('.btn-select').click(function(e) {
+      
+      // Stop the button from submitting our form
+      e.preventDefault();
+              
+      // Launch the link picker, passing in our callback
+      BLACKBAUD.api.customPartEditor.folders.launchImageFolderPicker({
+        callback: function(selectedFolder) {
+          $('.selected-folder-name').text(selectedFolder.folderName);
+          $('.selected-folder-guid').text(selectedFolder.folderGUID);
+        }
+      });
+        
+    })
+    
+  });
+  
+}(jQuery);     
+</script>
