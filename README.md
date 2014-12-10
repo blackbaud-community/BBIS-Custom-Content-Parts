@@ -1,7 +1,7 @@
 BBIS-Custom-Content-Parts
 =========================
 
-You can create part types which use your custom JavaScript and HTML. Parts based on these types are called content parts.
+You can create part types which use your custom JavaScript and HTML. Parts based on these types are called content parts.  Learn more about these examples in the [Custom Content Parts section](http://developer.blackbaud.com/bbis/guide/custom-content-parts/)of the [BBIS Developer Guide](http://developer.blackbaud.com/bbis/guide/).
 
 Content parts are one of two types of custom parts in Blackbaud Internet Solutions. To create custom content parts, you need access to Custom parts in Blackbaud Internet Solutions, the ability to create part types, parts, and to add parts to a page. Knowledge of HTML and JavaScript is required.
 
